@@ -7,3 +7,7 @@ E-mail.: huilenceballos243@gmail.com |https://github.com/ui45/Programaci-n-III|
 Liendo santiago | 48671247 |
 E-mail.:snliendo@escuelasproa.edu.ar|
 https://github.com/santiliendo247/Programaci-n-III
+
+Juan Pavon | 48130115 |
+E-mail: jipavon@escuelasproa.edu.ar
+https://github.com/monoverdeenelcuevon
