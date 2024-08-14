@@ -9,5 +9,5 @@ E-mail.:snliendo@escuelasproa.edu.ar|
 https://github.com/santiliendo247/Programaci-n-III
 
 Juan Pavon | 48130115 |
-E-mail: jipavon@escuelasproa.edu.ar
+E-mail: jipavon@escuelasproa.edu.ar |
 https://github.com/monoverdeenelcuevon
