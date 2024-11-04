@@ -1,0 +1,105 @@
+### Implementación con SQLite
+
+```python
+import sqlite3
+
+# Conexión a la base de datos SQLite
+def conectar_db():
+    conn = sqlite3.connect('clinica_turnos.db')
+    return conn
+
+class Turnero:
+    def __init__(self):
+        self.conn = conectar_db()
+        self.crear_tabla()
+
+    def crear_tabla(self):
+        with self.conn:
+            self.conn.execute('''
+                CREATE TABLE IF NOT EXISTS turnos (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    nombre TEXT NOT NULL
+                )
+            ''')
+
+    def nuevo_turno(self, nombre):
+        with self.conn:
+            self.conn.execute('INSERT INTO turnos (nombre) VALUES (?)', (nombre,))
+            print(f"Turno asignado a {nombre}.")
+
+    def atender_turno(self):
+        with self.conn:
+            turno = self.conn.execute('SELECT * FROM turnos ORDER BY id LIMIT 1').fetchone()
+            if turno:
+                self.conn.execute('DELETE FROM turnos WHERE id = ?', (turno[0],))
+                print(f"Atendiendo turno {turno[0]}: {turno[1]}")
+            else:
+                print("No hay turnos para atender.")
+
+    def mostrar_turnos(self):
+        turnos = self.conn.execute('SELECT * FROM turnos ORDER BY id').fetchall()
+        if turnos:
+            print("Turnos en espera:")
+            for turno in turnos:
+                print(f"Turno {turno[0]}: {turno[1]}")
+        else:
+            print("No hay turnos en espera.")
+
+class Clinica:
+    def __init__(self):
+        self.conn = conectar_db()
+        self.crear_tabla()
+
+    def crear_tabla(self):
+        with self.conn:
+            self.conn.execute('''
+                CREATE TABLE IF NOT EXISTS pacientes (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    nombre TEXT NOT NULL
+                )
+            ''')
+
+    def agregar_turno(self, nombre):
+        with self.conn:
+            self.conn.execute('INSERT INTO pacientes (nombre) VALUES (?)', (nombre,))
+            print(f"Turno asignado a {nombre}")
+
+    def mostrar_turnos(self):
+        pacientes = self.conn.execute('SELECT * FROM pacientes ORDER BY id').fetchall()
+        if pacientes:
+            print("Turnos pendientes:")
+            for idx, paciente in enumerate(pacientes):
+                print(f"{idx + 1}. {paciente[1]}")
+        else:
+            print("No hay turnos pendientes.")
+
+    def atender_paciente(self):
+        with self.conn:
+            paciente = self.conn.execute('SELECT * FROM pacientes ORDER BY id LIMIT 1').fetchone()
+            if paciente:
+                self.conn.execute('DELETE FROM pacientes WHERE id = ?', (paciente[0],))
+                print(f"Atendiendo a {paciente[1]}")
+            else:
+                print("No hay turnos pendientes.")
+
+# Ejemplo de uso
+if __name__ == "__main__":
+    turnero = Turnero()
+    turnero.nuevo_turno("Alice")
+    turnero.nuevo_turno("Bob")
+    turnero.mostrar_turnos()
+    turnero.atender_turno()
+    turnero.mostrar_turnos()
+
+    clinica = Clinica()
+    clinica.agregar_turno("Carlos")
+    clinica.agregar_turno("Diana")
+    clinica.mostrar_turnos()
+    clinica.atender_paciente()
+    clinica.mostrar_turnos()
+```
+
+### Descripción:
+1. **Base de Datos**: Se crea una base de datos llamada `clinica_turnos.db` con dos tablas: `turnos` para los turnos de la clase `Turnero` y `pacientes` para la clase `Clinica`.
+2. **Funciones CRUD**: Se incluyen operaciones para insertar, mostrar y eliminar turnos.
+3. **Manejo de Conexiones**: Cada clase establece una conexión a la base de datos al inicializarse.
