@@ -1,4 +1,4 @@
-h2 Un turnero de clínica es un sistema diseñado para organizar y gestionar el flujo de pacientes de manera eficiente. Su propósito principal es asignar turnos o números a las personas que llegan a la clínica para evitar aglomeraciones y reducir el tiempo de espera.
+ Un turnero de clínica es un sistema diseñado para organizar y gestionar el flujo de pacientes de manera eficiente. Su propósito principal es asignar turnos o números a las personas que llegan a la clínica para evitar aglomeraciones y reducir el tiempo de espera.
 
 # Turnero de clinica
 En este espacio estaremos creando un Turnero de Clinica Médica para un trabajo que tenemos en nuestra intitución escolar PRoA para la materia de Programación.
